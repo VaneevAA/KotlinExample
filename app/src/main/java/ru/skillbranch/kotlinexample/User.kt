@@ -1,4 +1,5 @@
-package ru.skillbranch.kotlinexample.extation
+package ru.skillbranch.kotlinexample
+
 
 import androidx.annotation.VisibleForTesting
 import java.lang.IllegalArgumentException
