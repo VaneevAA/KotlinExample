@@ -1,4 +1,4 @@
-package ru.skillbranch.kotlinexample.extation
+package ru.skillbranch.kotlinexample
 
 object UserHolder {
 
