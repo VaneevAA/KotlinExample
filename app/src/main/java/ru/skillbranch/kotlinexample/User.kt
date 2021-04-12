@@ -36,6 +36,13 @@ class User  (
 
             init {
                 println("First init block, primary constuctor was called")
+
+                check(!firstName.isBlank()) {"FirstName must be not blank"}
+                check(!email.isNullOrBlank() || !rawPhone.isNullOrBlank()) {"Email or phone must be not blank"}
+
+                phone = rawPhone
+                login = email ?: phone!!
+
                 userInfo = """
                     firstName: $firstName
                     lastName: $lastName
