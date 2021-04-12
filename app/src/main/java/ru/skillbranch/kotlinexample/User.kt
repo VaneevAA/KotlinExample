@@ -35,7 +35,7 @@ class User private constructor (
            get() = _login!!
 
             init {
-                println("First init block, primary constuctor was called")
+                println("First init block, primary constuctor was called $email")
 
                 check(!firstName.isBlank()) {"FirstName must be not blank"}
                 check(!email.isNullOrBlank() || !rawPhone.isNullOrBlank()) {"Email or phone must be not blank"}
