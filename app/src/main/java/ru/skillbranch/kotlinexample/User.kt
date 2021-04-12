@@ -8,7 +8,7 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.security.SecureRandom
 
-class User  (
+class User private constructor (
         private val firstName: String,
         private val lastName: String?,
         email: String? = null,
@@ -36,6 +36,13 @@ class User  (
 
             init {
                 println("First init block, primary constuctor was called")
+
+                check(!firstName.isBlank()) {"FirstName must be not blank"}
+                check(!email.isNullOrBlank() || !rawPhone.isNullOrBlank()) {"Email or phone must be not blank"}
+
+                phone = rawPhone
+                login = email ?: phone!!
+
                 userInfo = """
                     firstName: $firstName
                     lastName: $lastName
