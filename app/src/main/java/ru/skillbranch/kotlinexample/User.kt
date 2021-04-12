@@ -125,8 +125,8 @@ class User private constructor (
                             phone: String? = null) : User{
                    val (firstName, lastName) = fullName.fullNameToPair()
                    return when {
-                       !phone.isNullOrBlank() -> User(firstName,lastName,phone)
-                       !email.isNullOrBlank() && !password.isNullOrBlank() -> User(firstName,lastName,email,password)
+                       !phone.isNullOrBlank() -> User(firstName,lastName,rawPhone = phone)
+                       !email.isNullOrBlank() && !password.isNullOrBlank() -> User(firstName,lastName,email = email,password = password)
                        else -> throw IllegalArgumentException("Email or phone must be")
                    }
                }
