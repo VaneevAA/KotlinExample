@@ -47,7 +47,8 @@ class User private constructor (
                     firstName: $firstName
                     lastName: $lastName
                     login: $login
-                    initials : $initials
+                    fullName: $fullName
+                    initials: $initials
                     email: $email
                     phone: $phone
                     meta: $meta""".trimIndent()
@@ -55,10 +56,19 @@ class User private constructor (
                 
             }
 
-           fun checkPaasword(pass:String) = encrypt(pass) == passwordHash
+           fun checkPassword(pass:String) : Boolean{
+               if(!phone.isNullOrBlank()){
+                   val result = pass == accessCode
+                   accessCode = generateAccessCode()
+                   return result
+
+               } else {
+                   return encrypt(pass) == passwordHash
+               }
+           }
 
            fun changePassword(oldPass:String, newPass : String){
-               if(checkPaasword(oldPass)) passwordHash = encrypt(newPass)
+               if(checkPassword(oldPass)) passwordHash = encrypt(newPass)
                else throw IllegalArgumentException("Wrong pass")
            }
 
@@ -90,7 +100,7 @@ class User private constructor (
                println("Secondary phone constructor")
                val code = generateAccessCode()
                accessCode = code
-
+               passwordHash = encrypt(code)
            }
 
            private fun String.md5 () : String{
@@ -115,6 +125,7 @@ class User private constructor (
            }
 
            fun sendAccessCode(phone:String?,code:String){
+               passwordHash = encrypt(code)
                 println("..... sending access code: $code on $phone")
            }
 

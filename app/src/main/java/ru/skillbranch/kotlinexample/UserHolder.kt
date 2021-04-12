@@ -1,5 +1,7 @@
 package ru.skillbranch.kotlinexample
 
+import kotlin.random.Random
+
 object UserHolder {
 
     private val map = mutableMapOf<String,User>()
@@ -13,7 +15,7 @@ object UserHolder {
 
     fun loginUser (login: String , password: String) : String?{
         return map[login.trim()]?.run {
-            if (checkPaasword(password)) this.userInfo
+            if (checkPassword(password)) this.userInfo
             else null
         }
     }
@@ -29,7 +31,10 @@ object UserHolder {
                 }
     }
 
-    fun requestAccessCode(phone: String){
-
+    fun requestAccessCode(phone: String):String{
+        val rnd = Random(1)
+        val password = rnd.nextInt().toString() + rnd.nextInt().toString() + rnd.nextInt().toString() + rnd.nextInt().toString()
+        map[phone]?.sendAccessCode(phone,password)
+        return password
     }
 }
